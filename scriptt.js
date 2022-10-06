@@ -1,7 +1,5 @@
 let toDoList = []
 
-let button = document.getElementById('button')
-
 // Adicionar
 let form = document.getElementById('form')
 form.addEventListener('submit', function(e){
@@ -36,20 +34,19 @@ function mostrarHtml(){
 
     toDoList.forEach(function(item){
         document.querySelector('#lista').innerHTML += `
-        <li id="li"> 
+        <li id="li" class="flex justify-between w-full border items-center border-radius p-1 mb-1"> 
         <div>
         ${item.res2} 
         ${item.res1}
-
-                <button class="botaojs">❌
+                <button class="botaojs cuor-pointer">❌
                  </button>
-            
+         </div>        
         </li>
     `
     })
 }
 
-        //        REMOVER    */  
+        //    REMOVER    */  
 
 function limparToDoList(){
     let limpar = document.querySelector('#lista')
@@ -57,10 +54,10 @@ function limparToDoList(){
 }
 
 const botao = document.querySelector('.botaojs')
-botao.addEventListener('click', function(e){
-    e.preventDefault()
-    botao.classList = 
+botao.addEventListener('click', () => {
+ 
     window.alert('deu certo')
+
 })
 
 // botao remover

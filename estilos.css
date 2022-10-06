@@ -1,9 +1,12 @@
 
 .justify-between{
 	justify-content: space-between;
+	align-items: right;
 }
 
 .botaojs{
 	background-color: aqua;
 	margin-left: 100px;
+	justify-content: space-between;
+	border-radius: 10px;
 }
