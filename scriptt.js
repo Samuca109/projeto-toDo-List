@@ -38,7 +38,7 @@ function mostrarHtml(){
         <div>
         ${item.res2} 
         ${item.res1}
-                <button class="botaojs cuor-pointer">❌
+                <button id="botaojs cuor-pointer">❌
                  </button>
          </div>        
         </li>
@@ -55,20 +55,8 @@ function limparToDoList(){
 
 const botao = document.querySelector('.botaojs')
 botao.addEventListener('click', () => {
- 
-    window.alert('deu certo')
 
+   if(classList){
+    botao.remove()
+   }
 })
-
-// botao remover
-/*const botaojs = document.querySelector('.botaojs')
-botaojs.addEventListener('click', () => {
-    const ul = document.querySelector('#lista')
-    if(ul.classList){
-        ul.remove()
-    }
-})*/
-
-        
-
-

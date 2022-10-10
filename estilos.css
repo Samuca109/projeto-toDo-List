@@ -4,7 +4,7 @@
 	align-items: right;
 }
 
-.botaojs{
+#botaojs{
 	background-color: aqua;
 	margin-left: 100px;
 	justify-content: space-between;
