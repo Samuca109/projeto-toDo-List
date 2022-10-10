@@ -35,7 +35,7 @@ function mostrarHtml(){
     toDoList.forEach(function(item){
         document.querySelector('#lista').innerHTML += `
         <li id="li" class="flex justify-between w-full border items-center border-radius p-1 mb-1"> 
-        <div>
+        <div id="dados">
         ${item.res2} 
         ${item.res1}
                 <button id="botaojs cuor-pointer">❌
@@ -56,7 +56,7 @@ function limparToDoList(){
 const botao = document.querySelector('.botaojs')
 botao.addEventListener('click', () => {
 
-   if(classList){
-    botao.remove()
-   }
+    const ul = querySelector('#dados')
+    ul.innerHTML = ""
+    ul.remove()
 })
