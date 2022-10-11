@@ -48,15 +48,12 @@ function mostrarHtml(){
 
         //    REMOVER    */  
 
-function limparToDoList(){
-    let limpar = document.querySelector('#lista')
-    limpar.innerHTML = ''
-}
 
-const botao = document.querySelector('.botaojs')
+const botao = document.querySelector('#botaojs')
 botao.addEventListener('click', () => {
 
-    const ul = querySelector('#dados')
-    ul.innerHTML = ""
-    ul.remove()
+    document.querySelector('#dados')
+    if(classList){
+        toDoList.remove()
+    }
 })
