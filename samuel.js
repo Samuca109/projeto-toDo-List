@@ -45,7 +45,7 @@ function mostrarHtml(){
     const li = document.querySelector('#li')
     const div = document.querySelector('#dados')
         botao.addEventListener('click', function(){
-            toDoList.remove()
+            li.remove()
         })
      })
         }
