@@ -45,15 +45,3 @@ function mostrarHtml(){
     `
     })
 }
-
-        //    REMOVER    */  
-
-
-const botao = document.querySelector('#botaojs')
-botao.addEventListener('click', () => {
-
-    document.querySelector('#dados')
-    if(classList){
-        toDoList.remove()
-    }
-})
