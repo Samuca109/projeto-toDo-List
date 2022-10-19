@@ -1,37 +1,35 @@
 let toDoList = []
 
-	//A funçao /*updateToDoList*/ é criada no final 
-get("#form").addEventListener("submit", function(e){
-	e.preventDefault()
-	const inputValue = get("#input").value
-	
-	if(inputValue.length){
-		// Aqui mostra o caminho de onde ele vai ficar guardado
-		toDoList.push({
-			id: toDoList.length,
-			name: inputValue
-		})
-		// Limpa automaticamente o texto quando sobe ele pra lista
-		get("#input").value = ""
-		updateToDoList()
-	}
-})
-
 function get(element){
 	return document.querySelector(element)
 }
 
-		/*Apagar*/
-//Aqui é onde limpa,onde apaga e onde adiciona tambem 
-function cleanToDoList(){
-	document.querySelector("#toDoList").innerHTML = ''
+function getAll(element){
+	return document.querySelectorAll(element)
 }
 
-//proibindo palavras repetidas 
+function cleanToDoList(){
+	get("#toDoList").innerHTML = ''
+}
+
+function addTodo(){
+	const inputValue = get("#input").value
+	
+	if(inputValue.length){
+		toDoList.push({
+			id: toDoList.length,
+			name: inputValue,
+			isEditing: false
+		})
+		
+		get("#input").value = ""
+		updateToDoList()
+	}
+}
+
 function removeToDo(element){
-	//Aqui é tambem para a pessoa nao colocar as mesmas palavras repetidas  
 	element.addEventListener("click", function(){
-		const dataId = element.parentElement.getAttribute("data-id") // aqui é so o id da div que aparece no update toDoList
+		const dataId = element.parentElement.parentElement.getAttribute("data-id")
 		toDoList = toDoList.filter(function(item){
 			return item.id != dataId
 		})
@@ -40,34 +38,98 @@ function removeToDo(element){
 	})
 }
 
-//Aqui adiciona em lista (codigo abaixo), aqui é so como vai aparecer no html,por isso sempre chama essa funçao
-function updateToDoList(){
-
-	cleanToDoList()
-
-	toDoList.forEach(function(item){
-		document.querySelector("#toDoList").innerHTML += // aqui é o removeTodo
-		`
-			<li class="flex justify-between w-full border items-center border-radius p-1 mb-1">
-				${item.name}
-				<div data-id="${item.id}">
-					<span class="removeToDo cuor-pointer">❌</span>
-				</button>
-			</li>
-		`
-		// usar o span pra agrupamento de linhas e textos
-	})
-	
-	//Aqui remove 
-	// Aqui localiza o removeToDo do span da class
-	// Vai executar a funçao removetodo para cada elemento do span
-	document.querySelectorAll(".removeToDo").forEach(function(element){
-		removeToDo(element)
+function toggleEditToDo(element){
+	element.addEventListener("click", function(){
+		const dataId = element.parentElement.parentElement.getAttribute("data-id")
+		toDoList = toDoList.map(function(item){
+			return {
+				...item,
+				isEditing: item.id == dataId
+			}
+		})
+				
+		updateToDoList()			
 	})
 }
-// Pode-se guardar dentro da funçao simplesmente nao precisa estar em uma variavel dependendo da situaçao,usando o document
 
-//Bisu criar funçoes diferentes e chama-las em outras funçoes
+function hideEditTodo(element){
+	element.addEventListener("click", function(){
+		const dataId = element.parentElement.parentElement.getAttribute("data-id")
+		toDoList = toDoList.map(function(item){
+			return {
+				...item,
+				isEditing: item.id == dataId ? false : item.isEditing
+			}
+		})
+				
+		updateToDoList()			
+	})
+}
 
+function editToDo(element){
+	element.addEventListener("submit", (e) => {
+		e.preventDefault()
+		
+		const dataId = element.parentElement.getAttribute("data-id")
+		const inputValue = element.children[0].value
+		
+		toDoList = toDoList.map(function(item){
+			return {
+				...item,
+				name: dataId == item.id ? inputValue : item.name,
+				isEditing: false
+			}
+		})
 
+		updateToDoList()
+	})
+}
+
+function updateToDoList(){
+	cleanToDoList()
+	toDoList.forEach(function(item){
+		get("#toDoList").innerHTML += `
+			<li 
+				data-id="${item.id}"
+				class="flex justify-between w-full border items-center border-radius p-1 mb-1"
+			>
+				${item.isEditing ? 
+					`
+						<form class="editForm">
+							<input placeholder="New content" type="text" />
+							<button type="submit" class="confirmEdit cursor-pointer">✅</button>
+							<button class="cancelEdit cursor-pointer">❌</button>
+						</form>
+					` :
+					`${item.name}
+					<div>
+						<span class="toggleEditToDo cursor-pointer">✏</span>
+						<span class="removeToDo cursor-pointer">❌</span>
+					</div>`
+				}
+			</li>
+		`
+	})
+	
+	getAll(".removeToDo").forEach(function(element){
+		removeToDo(element)
+	})
+	
+	getAll(".toggleEditToDo").forEach(function(element){
+		toggleEditToDo(element)
+	})
+	
+	getAll(".editForm").forEach(function(element){
+		editToDo(element)
+	})
+	
+	getAll(".cancelEdit").forEach(function(element){
+		hideEditTodo(element)
+	})
+}
+
+get("#form").addEventListener("submit", function(e){
+	e.preventDefault()
+	addTodo()
+})
 

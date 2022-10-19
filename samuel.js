@@ -18,6 +18,7 @@ form.addEventListener('submit', function(e){
         document.querySelector('#input').focus()
         mostrarHtml()
     } 
+    const guardaLength = `${item.res2}`
 })
 
 // Funçao de conexao para sempre adicionar
@@ -26,29 +27,26 @@ function conexao(){
     conexao.innerHTML = ''
 }
 
+
 //Mostrar no html
 function mostrarHtml(){
 
     toDoList.forEach(function(item){
         document.querySelector('#lista').innerHTML += `
         <li id="li" class="flex justify-between w-full border items-center border-radius p-1 mb-1" > 
-       
         <div id="dados">
         ${item.res1}
-        ${item.res2} 
-               <button id="botaojs">❌
-                 </button> 
+                   <button id="botaojs">❌
+                     </button>
          </div>        
         </li>
     `
     const botao = document.querySelector("#botaojs")
     const li = document.querySelector('#li')
     const div = document.querySelector('#dados')
-        botao.addEventListener('click', function(){
-            li.remove()
-        })
+      botao.addEventListener('click', function(){
+        li.remove()
+    }) 
      })
+
         }
-
-
-/**/ 
