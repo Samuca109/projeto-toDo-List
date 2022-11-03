@@ -10,7 +10,12 @@ function getAll(element){
 
 function cleanToDoList(){
 	get("#toDoList").innerHTML = ''
-}
+}''
+
+/**
+ *	addTodo é para subir pro array
+ * 	isEditing é para
+ */
 
 function addTodo(){
 	const inputValue = get("#input").value
@@ -27,6 +32,7 @@ function addTodo(){
 	}
 }
 
+// funçao de remover
 function removeToDo(element){
 	element.addEventListener("click", function(){
 		const dataId = element.parentElement.parentElement.getAttribute("data-id")
@@ -37,6 +43,9 @@ function removeToDo(element){
 		updateToDoList()			
 	})
 }
+
+// Aqui esta a funçao de editar 
+//toggleEditToDo == alternarEditToDo (traduçao)
 
 function toggleEditToDo(element){
 	element.addEventListener("click", function(){
@@ -52,6 +61,7 @@ function toggleEditToDo(element){
 	})
 }
 
+//Faz com que seja para todos os elementos que vao ser criados automaticamente
 function hideEditTodo(element){
 	element.addEventListener("click", function(){
 		const dataId = element.parentElement.parentElement.getAttribute("data-id")
@@ -85,7 +95,11 @@ function editToDo(element){
 	})
 }
 
+/**
+ *  O data-id está aqui dentro do li ou seja se for pra adicionar seria no li
+ */
 function updateToDoList(){
+	// essa funçao mostra no html
 	cleanToDoList()
 	toDoList.forEach(function(item){
 		get("#toDoList").innerHTML += `
@@ -93,24 +107,29 @@ function updateToDoList(){
 				data-id="${item.id}"
 				class="flex justify-between w-full border items-center border-radius p-1 mb-1"
 			>
-				${item.isEditing ? 
-					`
-						<form class="editForm">
-							<input placeholder="New content" type="text" />
-							<button type="submit" class="confirmEdit cursor-pointer">✅</button>
-							<button class="cancelEdit cursor-pointer">❌</button>
-						</form>
-					` :
-					`${item.name}
-					<div>
-						<span class="toggleEditToDo cursor-pointer">✏</span>
-						<span class="removeToDo cursor-pointer">❌</span>
-					</div>`
-				}
+			${item.isEditing ? 
+			`
+				<form class="editForm">
+					<input placeholder="New content" type="text" />
+					<button type="submit" class="confirmEdit cursor-pointer">✅</button>
+					<button class="cancelEdit cursor-pointer">❌</button>
+				</form>
+				` :
+				`${item.name}
+				<div>
+					<span class="toggleEditToDo cursor-pointer">✏</span>
+					<span class="removeToDo cursor-pointer">❌</span>
+				</div>`
+			}
 			</li>
 		`
 	})
 	
+
+/**
+ * Aqui sao os botoes todos sendo craidos com element
+ * o getAll é so para localizar exemplo um querySelector
+ */
 	getAll(".removeToDo").forEach(function(element){
 		removeToDo(element)
 	})

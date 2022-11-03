@@ -1,6 +1,11 @@
 
 
-
+#botaoEditar1{
+	float: right;
+	margin-left: 5%;
+	cursor: pointer;
+	border-radius: 10px;
+}
 #botaojs{
 	background-color: aqua;
 	cursor: pointer;

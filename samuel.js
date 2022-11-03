@@ -1,52 +1,103 @@
-let toDoList = []
+const toDoList = []
+const ul = document.querySelector('#lista')
 
-// Adicionar
-let form = document.getElementById('form')
-form.addEventListener('submit', function(e){
-  
-    e.preventDefault()
 
-    let input = document.getElementById('input').value 
+const form = document.querySelector('#form')
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const inputValue = document.querySelector('#input').value
 
-    if(input.length){
-        toDoList.push({
-            res1: input,
-            res2: toDoList.length
-        })
+    if(inputValue){
+        adicionar(inputValue)
+    }
 
-        document.querySelector('#input').value = ""
-        document.querySelector('#input').focus()
-        mostrarHtml()
-    } 
-    const guardaLength = `${item.res2}`
+    document.querySelector('#input').focus()
+    document.querySelector('#input').value = ""
 })
 
-// Funçao de conexao para sempre adicionar
-function conexao(){
-    let conexao = document.getElementById('lista')
-    conexao.innerHTML = ''
+
+const adicionar = (text) =>{
+  
+    /*
+     * O createElement cria e o appendChild adiciona        
+     *  O classLista.add() é para adicionar uma classe ao botão 
+        * ul esta global na segunda linha
+     */
+
+
+    const li = document.createElement('li')
+    ul.appendChild(li)
+    
+
+    const h3 = document.createElement("h3")
+    h3.innerText = text
+    h3.classList.add('h3')
+    li.appendChild(h3)
+
+    const botaoE = document.createElement('button')
+    botaoE.innerHTML = '✏'
+    botaoE.classList.add('botao-editar')
+    li.appendChild(botaoE)
+
+    const botaoR = document.createElement('button')
+    botaoR.classList.add('botao-excluir')
+    botaoR.innerHTML = '❌'
+    li.appendChild(botaoR)
+
+    const botaoF = document.createElement('button')
+    botaoF.classList.add('botao-riscado')
+    botaoF.innerHTML = 'FEITO'
+    li.appendChild(botaoF) 
 }
 
+function form2(e){
+    e.preventDefault()
 
-//Mostrar no html
-function mostrarHtml(){
+    const input2 = document.querySelector('#input2')
+    const h3 = document.querySelector('h3')
+    if(input2 != h3){
+        ul.innerText = input2
+    }
+}
 
-    toDoList.forEach(function(item){
-        document.querySelector('#lista').innerHTML += `
-        <li id="li" class="flex justify-between w-full border items-center border-radius p-1 mb-1" > 
-        <div id="dados">
-        ${item.res1}
-                   <button id="botaojs">❌
-                     </button>
-         </div>        
-        </li>
-    `
-    const botao = document.querySelector("#botaojs")
-    const li = document.querySelector('#li')
-    const div = document.querySelector('#dados')
-      botao.addEventListener('click', function(){
-        li.remove()
-    }) 
-     })
+document.addEventListener('click', (e) => {
 
+    /*
+     * o target é uma propriedade de js que pega o elemento principal
+     * Consegue ja ver no conole.log sem o list ul no caso o elemento pai ele serve para mostrar no html
+     * o elementoClick tem que receber o li para poder remover no exato que voce clicar
+     */
+
+    const elementoClick = e.target
+    const li = elementoClick.closest("li")
+    const text = elementoClick.closest("h3")
+    let editar;
+
+    /* função remover*/ 
+    if(elementoClick.classList.contains("botao-excluir")){
+       li.remove()
+    }
+
+    /* Função finalizada*/
+    if(elementoClick.classList.contains("botao-riscado")){
+        text.classList.toggle("done")
+    }
+
+    /*funçao editar*/
+        if(elementoClick.classList.contains("botao-editar")){
+            li.innerHTML += ` 
+                <form id="form2">
+                <input type="text" id="input2">
+                <button type="submit" id="botao_edit2">  ✅ </button>
+                </button> 
+                </form>
+            `
+            form2()
         }
+
+      if(elementoClick && li.querySelector("h3")){
+        editar = li.querySelector("h3").innerText
+      }  
+     
+})
