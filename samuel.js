@@ -2,22 +2,23 @@ const toDoList = []
 const ul = document.querySelector('#lista')
 
 
+
 const form = document.querySelector('#form')
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     
     const inputValue = document.querySelector('#input').value
-
     if(inputValue){
+    
         adicionar(inputValue)
     }
-
     document.querySelector('#input').focus()
     document.querySelector('#input').value = ""
 })
 
 
-const adicionar = (text) =>{
+
+const adicionar = (text) => {
   
     /*
      * O createElement cria e o appendChild adiciona        
@@ -26,9 +27,9 @@ const adicionar = (text) =>{
      */
 
 
+
     const li = document.createElement('li')
     ul.appendChild(li)
-    
 
     const h3 = document.createElement("h3")
     h3.innerText = text
@@ -49,17 +50,10 @@ const adicionar = (text) =>{
     botaoF.classList.add('botao-riscado')
     botaoF.innerHTML = 'FEITO'
     li.appendChild(botaoF) 
+
 }
 
-function form2(e){
-    e.preventDefault()
 
-    const input2 = document.querySelector('#input2')
-    const h3 = document.querySelector('h3')
-    if(input2 != h3){
-        ul.innerText = input2
-    }
-}
 
 document.addEventListener('click', (e) => {
 
@@ -67,6 +61,7 @@ document.addEventListener('click', (e) => {
      * o target é uma propriedade de js que pega o elemento principal
      * Consegue ja ver no conole.log sem o list ul no caso o elemento pai ele serve para mostrar no html
      * o elementoClick tem que receber o li para poder remover no exato que voce clicar
+     * o closest apenas localiza de outra forma
      */
 
     const elementoClick = e.target
@@ -93,11 +88,18 @@ document.addEventListener('click', (e) => {
                 </button> 
                 </form>
             `
-            form2()
+            editInput()
         }
 
-      if(elementoClick && li.querySelector("h3")){
-        editar = li.querySelector("h3").innerText
-      }  
-     
 })
+
+function editInput(){
+
+    const input2 = document.querySelector('#input2').value
+    const li = document.querySelector('li')
+
+    if(li){
+        li.innerHTML = input2
+    }       
+     
+}

@@ -62,17 +62,6 @@ function mostrarHtml(){
                 <button id="botaoEditar1">✏
                 </button> 
          </div>        
-         ${item.editar ?
-            `<form>
-                <input type="text" id="input2" />
-                <button type="submit"> ✅ </button>
-                <button id="botaoApagar"> ❌ </button>
-             </form>   
-            ` : 
-            `
-
-            `
-        }
         </li>
     `
          apagar()
