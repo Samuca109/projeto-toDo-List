@@ -2,16 +2,15 @@ const toDoList = []
 const ul = document.querySelector('#lista')
 
 
-
 const form = document.querySelector('#form')
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     
     const inputValue = document.querySelector('#input').value
     if(inputValue){
-    
         adicionar(inputValue)
     }
+
     document.querySelector('#input').focus()
     document.querySelector('#input').value = ""
 })
@@ -25,9 +24,6 @@ const adicionar = (text) => {
      *  O classLista.add() é para adicionar uma classe ao botão 
         * ul esta global na segunda linha
      */
-
-
-
     const li = document.createElement('li')
     ul.appendChild(li)
 
@@ -49,9 +45,9 @@ const adicionar = (text) => {
     const botaoF = document.createElement('button')
     botaoF.classList.add('botao-riscado')
     botaoF.innerHTML = 'FEITO'
-    li.appendChild(botaoF) 
-
+    li.appendChild(botaoF)
 }
+
 
 
 
@@ -84,22 +80,27 @@ document.addEventListener('click', (e) => {
             li.innerHTML += ` 
                 <form id="form2">
                 <input type="text" id="input2">
-                <button type="submit" id="botao_edit2">  ✅ </button>
+                <button type="submit">  ✅ </button>
                 </button> 
                 </form>
             `
-            editInput()
         }
-
 })
 
-function editInput(){
+function form2(){
+const form2 = document.querySelector('#form2')
+form2.addEventListener('submit', (e) => {
 
-    const input2 = document.querySelector('#input2').value
-    const li = document.querySelector('li')
+    e.preventDefault()
+    const elementoClick = e.target
+    const li = elementoClick.closest("li")
+    const inputValueDois = document.querySelector('#input2').value
 
-    if(li){
-        li.innerHTML = input2
-    }       
-     
+        if(inputValueDois){
+            adicionar(inputValueDois)
+        }
+
+        ul.appendChild(inputValueDois)
+
+})
 }
